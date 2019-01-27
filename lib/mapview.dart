@@ -1,64 +1,35 @@
 import 'package:flutter/material.dart';
-// import 'package:geolocator/geolocator.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
-// class TrackerMapner extends StatefulWidget {
-//   _TrackerMapnerState createState() => _TrackerMapnerState();
-// }
-
-// class _TrackerMapnerState extends State<TrackerMapner> {
-//   bool mapToggle = false;
-//   var currentLocation;
-
-//   @override
-//     void initState() {
-//       super.initState();
-//       Geolocator().getCurrentPosition().then((currloc){
-//         setState(() {
-//             currentLocation = currloc;
-//             mapToggle = true;       
-//            });
-//       });
-//     }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-      
-//        appBar: new AppBar(
-//          title: new Text("Map View"),
-//        ),
-
-//        body: Column(
-//          children: <Widget>[
-//            Stack(
-//              children: <Widget>[
-//                Container(
-//                  height: MediaQuery.of(context).size.height-80.0,
-//                  width: double.infinity,
-//                  child: mapToggle ?
-//                  GoogleMap():
-//                  Center(
-//                    child: new Text("Loading....."),
-//                  ),
-//                ),
-//              ],
-//            )
-//          ],
-//        ),
-//     );
-//   }
-// }
 class MapViewer extends StatefulWidget {
   _MapViewerState createState() => _MapViewerState();
 }
 
 class _MapViewerState extends State<MapViewer> {
+  GoogleMapController myController;
   @override
   Widget build(BuildContext context) {
    return Scaffold(
        appBar: new AppBar(
          title: new Text("Mapview"),
+       ),
+
+       body: Column(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: <Widget>[
+           Container(
+             height: 500.0,
+             width: 350.0,
+             child: GoogleMap(
+              initialCameraPosition: CameraPosition(target: null,zoom: 10.0),
+               onMapCreated: (controller){
+                 setState(() {
+                  myController=controller;
+                 });
+               },
+             ),
+           )
+         ],
        ),
     );
   }
